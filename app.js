@@ -91,6 +91,8 @@ function getPlayerElements() {
     audioPlayer: document.querySelector("#audioPlayer"),
     songTitle: document.querySelector("#songTitle"),
     songArtist: document.querySelector("#songArtist"),
+    miniSongTitle: document.querySelector("#miniSongTitle"),
+    miniSongArtist: document.querySelector("#miniSongArtist"),
     songSelect: document.querySelector("#songSelect"),
     lyricsList: document.querySelector("#lyricsList"),
     currentTime: document.querySelector("#currentTime"),
@@ -164,14 +166,17 @@ async function loadSong(songId, shouldPlay = false) {
   const song = songs[currentSongIndex];
   elements.songTitle.textContent = song.title;
   elements.songArtist.textContent = song.artist || "未知歌手";
+  elements.miniSongTitle.textContent = song.title;
+  elements.miniSongArtist.textContent = song.artist || "未知歌手";
   elements.songSelect.value = song.id;
   elements.audioPlayer.src = song.audio;
   elements.seekBar.value = "0";
   elements.seekBar.max = "0";
   elements.currentTime.textContent = "0:00";
   elements.duration.textContent = "0:00";
-  elements.playPauseButton.textContent = "播放";
+  elements.playPauseButton.textContent = "▶";
   elements.playPauseButton.setAttribute("aria-label", "播放");
+  elements.playPauseButton.setAttribute("title", "播放");
   activeLineIndex = -1;
 
   const nextUrl = getSongUrl(song.id);
@@ -248,13 +253,15 @@ function bindPlayerEvents() {
   });
 
   elements.audioPlayer.addEventListener("play", () => {
-    elements.playPauseButton.textContent = "暂停";
+    elements.playPauseButton.textContent = "⏸";
     elements.playPauseButton.setAttribute("aria-label", "暂停");
+    elements.playPauseButton.setAttribute("title", "暂停");
   });
 
   elements.audioPlayer.addEventListener("pause", () => {
-    elements.playPauseButton.textContent = "播放";
+    elements.playPauseButton.textContent = "▶";
     elements.playPauseButton.setAttribute("aria-label", "播放");
+    elements.playPauseButton.setAttribute("title", "播放");
   });
 
   elements.audioPlayer.addEventListener("ended", () => loadAdjacentSong(1));
