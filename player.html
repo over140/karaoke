@@ -11,6 +11,13 @@
       <section class="surface player-surface" aria-label="Karaoke player">
         <header class="player-header">
           <a class="back-link" href="index.html" aria-label="返回歌曲列表">返回列表</a>
+          <div id="heroCover" class="hero-cover" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+          </div>
           <div class="song-heading">
             <p class="eyebrow">Now Playing</p>
             <h1 id="songTitle">加载中...</h1>
@@ -26,7 +33,13 @@
           <audio id="audioPlayer" preload="metadata"></audio>
 
           <div class="mini-now-playing">
-            <div class="album-mark" aria-hidden="true">♪</div>
+            <div id="miniCover" class="album-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+            </div>
             <div class="mini-song-text">
               <strong id="miniSongTitle">加载中...</strong>
               <span id="miniSongArtist">准备开始</span>
@@ -40,16 +53,43 @@
           </div>
 
           <div class="controls-row">
-            <button id="previousButton" class="icon-button" type="button" aria-label="上一首" title="上一首">⏮</button>
-            <button id="rewindButton" class="icon-button" type="button" aria-label="后退 5 秒" title="后退 5 秒">−5</button>
-            <button id="playPauseButton" class="play-button" type="button" aria-label="播放" title="播放">▶</button>
-            <button id="forwardButton" class="icon-button" type="button" aria-label="前进 5 秒" title="前进 5 秒">+5</button>
-            <button id="nextButton" class="icon-button" type="button" aria-label="下一首" title="下一首">⏭</button>
+            <button id="previousButton" class="icon-button" type="button" aria-label="上一首" title="上一首">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <polygon points="19 20 9 12 19 4 19 20"></polygon>
+                <line x1="5" x2="5" y1="19" y2="5"></line>
+              </svg>
+            </button>
+            <button id="rewindButton" class="icon-button" type="button" aria-label="后退 5 秒" title="后退 5 秒">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <polygon points="11 19 2 12 11 5 11 19"></polygon>
+                <polygon points="22 19 13 12 22 5 22 19"></polygon>
+              </svg>
+            </button>
+            <button id="playPauseButton" class="play-button" type="button" aria-label="播放" title="播放"></button>
+            <button id="forwardButton" class="icon-button" type="button" aria-label="前进 5 秒" title="前进 5 秒">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <polygon points="13 19 22 12 13 5 13 19"></polygon>
+                <polygon points="2 19 11 12 2 5 2 19"></polygon>
+              </svg>
+            </button>
+            <button id="nextButton" class="icon-button" type="button" aria-label="下一首" title="下一首">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <polygon points="5 4 15 12 5 20 5 4"></polygon>
+                <line x1="19" x2="19" y1="5" y2="19"></line>
+              </svg>
+            </button>
           </div>
 
           <div class="secondary-row">
-            <button id="repeatLineButton" class="repeat-button" type="button" aria-label="重唱本句" title="重唱本句">↺ 本句</button>
-            <select id="songSelect" aria-label="切换歌曲"></select>
+            <button id="repeatLineButton" class="repeat-button" type="button" aria-label="重唱本句" title="重唱本句">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                <path d="M21 3v5h-5"></path>
+                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                <path d="M8 16H3v5"></path>
+              </svg>
+              <span>本句</span>
+            </button>
           </div>
         </footer>
       </section>

@@ -7,6 +7,17 @@ let activeLineIndex = -1;
 let isSeeking = false;
 
 const page = document.body.dataset.page;
+const playIcon = `
+  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+    <polygon points="6 3 20 12 6 21 6 3"></polygon>
+  </svg>
+`;
+const pauseIcon = `
+  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+    <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+    <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+  </svg>
+`;
 
 async function fetchSongs() {
   const response = await fetch(SONG_CATALOG_URL);
@@ -48,6 +59,38 @@ function setText(selector, value) {
   if (element) element.textContent = value;
 }
 
+function setPlayButtonState(button, isPlaying) {
+  button.innerHTML = isPlaying ? pauseIcon : playIcon;
+  button.setAttribute("aria-label", isPlaying ? "暂停" : "播放");
+  button.setAttribute("title", isPlaying ? "暂停" : "播放");
+}
+
+function renderCover(element, song) {
+  if (!element) return;
+
+  element.innerHTML = "";
+
+  if (song.cover) {
+    const image = document.createElement("img");
+    image.src = song.cover;
+    image.alt = "";
+    image.loading = "lazy";
+    image.decoding = "async";
+    element.append(image);
+    element.classList.add("has-cover");
+    return;
+  }
+
+  element.classList.remove("has-cover");
+  element.innerHTML = `
+    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+      <path d="M9 18V5l12-2v13"></path>
+      <circle cx="6" cy="18" r="3"></circle>
+      <circle cx="18" cy="16" r="3"></circle>
+    </svg>
+  `;
+}
+
 function renderListPage() {
   const songList = document.querySelector("#songList");
   const listState = document.querySelector("#listState");
@@ -69,10 +112,12 @@ function renderListPage() {
         link.className = "song-card";
         link.href = getSongUrl(song.id);
         link.innerHTML = `
+          <span class="song-card-cover" aria-hidden="true"></span>
           <span class="song-card-title"></span>
           <span class="song-card-artist"></span>
           <span class="song-card-meta"></span>
         `;
+        renderCover(link.querySelector(".song-card-cover"), song);
         link.querySelector(".song-card-title").textContent = song.title;
         link.querySelector(".song-card-artist").textContent = song.artist || "未知歌手";
         link.querySelector(".song-card-meta").textContent = song.audio.split("/").at(-1);
@@ -93,7 +138,8 @@ function getPlayerElements() {
     songArtist: document.querySelector("#songArtist"),
     miniSongTitle: document.querySelector("#miniSongTitle"),
     miniSongArtist: document.querySelector("#miniSongArtist"),
-    songSelect: document.querySelector("#songSelect"),
+    heroCover: document.querySelector("#heroCover"),
+    miniCover: document.querySelector("#miniCover"),
     lyricsList: document.querySelector("#lyricsList"),
     currentTime: document.querySelector("#currentTime"),
     duration: document.querySelector("#duration"),
@@ -105,16 +151,6 @@ function getPlayerElements() {
     nextButton: document.querySelector("#nextButton"),
     repeatLineButton: document.querySelector("#repeatLineButton")
   };
-}
-
-function renderSongOptions(songSelect) {
-  songSelect.innerHTML = "";
-  songs.forEach((song) => {
-    const option = document.createElement("option");
-    option.value = song.id;
-    option.textContent = `${song.title} - ${song.artist || "未知歌手"}`;
-    songSelect.append(option);
-  });
 }
 
 function renderLyrics(lyricsList) {
@@ -168,15 +204,14 @@ async function loadSong(songId, shouldPlay = false) {
   elements.songArtist.textContent = song.artist || "未知歌手";
   elements.miniSongTitle.textContent = song.title;
   elements.miniSongArtist.textContent = song.artist || "未知歌手";
-  elements.songSelect.value = song.id;
+  renderCover(elements.heroCover, song);
+  renderCover(elements.miniCover, song);
   elements.audioPlayer.src = song.audio;
   elements.seekBar.value = "0";
   elements.seekBar.max = "0";
   elements.currentTime.textContent = "0:00";
   elements.duration.textContent = "0:00";
-  elements.playPauseButton.textContent = "▶";
-  elements.playPauseButton.setAttribute("aria-label", "播放");
-  elements.playPauseButton.setAttribute("title", "播放");
+  setPlayButtonState(elements.playPauseButton, false);
   activeLineIndex = -1;
 
   const nextUrl = getSongUrl(song.id);
@@ -253,15 +288,11 @@ function bindPlayerEvents() {
   });
 
   elements.audioPlayer.addEventListener("play", () => {
-    elements.playPauseButton.textContent = "⏸";
-    elements.playPauseButton.setAttribute("aria-label", "暂停");
-    elements.playPauseButton.setAttribute("title", "暂停");
+    setPlayButtonState(elements.playPauseButton, true);
   });
 
   elements.audioPlayer.addEventListener("pause", () => {
-    elements.playPauseButton.textContent = "▶";
-    elements.playPauseButton.setAttribute("aria-label", "播放");
-    elements.playPauseButton.setAttribute("title", "播放");
+    setPlayButtonState(elements.playPauseButton, false);
   });
 
   elements.audioPlayer.addEventListener("ended", () => loadAdjacentSong(1));
@@ -289,7 +320,6 @@ function bindPlayerEvents() {
   elements.rewindButton.addEventListener("click", () => seekBy(-5));
   elements.forwardButton.addEventListener("click", () => seekBy(5));
   elements.repeatLineButton.addEventListener("click", repeatActiveLine);
-  elements.songSelect.addEventListener("change", (event) => loadSong(event.target.value, true));
 }
 
 async function renderPlayerPage() {
@@ -297,7 +327,6 @@ async function renderPlayerPage() {
 
   try {
     songs = await fetchSongs();
-    renderSongOptions(elements.songSelect);
 
     if (!songs.length) {
       renderLyricsError(elements.lyricsList, "还没有歌曲。请在 assets/songs.json 添加歌曲。");
@@ -306,6 +335,7 @@ async function renderPlayerPage() {
     }
 
     bindPlayerEvents();
+    setPlayButtonState(elements.playPauseButton, false);
     const params = new URLSearchParams(window.location.search);
     const requestedSongId = params.get("id") || songs[0].id;
     await loadSong(requestedSongId);
