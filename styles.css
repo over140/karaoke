@@ -272,6 +272,22 @@ h1 {
   cursor: pointer;
 }
 
+.lyric-text {
+  display: block;
+}
+
+.lyric-pinyin {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.02em;
+  margin-top: 2px;
+  opacity: 0.55;
+}
+
+.lyric-line.is-active .lyric-pinyin {
+  opacity: 0.75;
+}
+
 .lyric-line:hover {
   color: var(--accent-strong);
 }

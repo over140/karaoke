@@ -168,7 +168,17 @@ function renderLyrics(lyricsList) {
     const item = document.createElement("li");
     item.className = "lyric-line";
     item.dataset.index = String(index);
-    item.textContent = line.text;
+    const [lyricText, pinyin] = line.text.split("|");
+    const textNode = document.createElement("span");
+    textNode.className = "lyric-text";
+    textNode.textContent = lyricText;
+    item.append(textNode);
+    if (pinyin) {
+      const pinyinNode = document.createElement("span");
+      pinyinNode.className = "lyric-pinyin";
+      pinyinNode.textContent = pinyin;
+      item.append(pinyinNode);
+    }
     item.addEventListener("click", () => {
       const { audioPlayer } = getPlayerElements();
       audioPlayer.currentTime = line.time;

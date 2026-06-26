@@ -6,5 +6,13 @@
     "cover": "assets/covers/jax-like-my-father.jpg",
     "audio": "assets/audio/jax-like-my-father.mp3",
     "lyrics": "assets/lyrics/jax-like-my-father.lrc"
+  },
+  {
+    "id": "gu-tianle-tianming-zuigao",
+    "title": "天命最高",
+    "artist": "古天乐",
+    "cover": "assets/covers/gu-tianle-tianming-zuigao.jpg",
+    "audio": "assets/audio/gu-tianle-tianming-zuigao.mp3",
+    "lyrics": "assets/lyrics/gu-tianle-tianming-zuigao.lrc"
   }
 ]
