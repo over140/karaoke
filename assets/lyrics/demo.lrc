@@ -1,0 +1,4 @@
+[00:00.00]把音频文件放到 assets/audio
+[00:04.00]把 LRC 歌词放到 assets/lyrics
+[00:08.00]在 assets/songs.json 添加歌曲信息
+[00:12.00]点击歌词可以跳到对应时间练习

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Karaoke Practice</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-page="list">
+    <main class="app-shell list-shell">
+      <section class="surface">
+        <header class="page-header">
+          <div>
+            <p class="eyebrow">Karaoke Practice</p>
+            <h1>歌曲列表</h1>
+            <p class="subtle">选择一首歌进入练习页面。</p>
+          </div>
+        </header>
+
+        <section class="song-list" aria-label="歌曲列表">
+          <div id="songList" class="song-grid"></div>
+          <p id="listState" class="empty-state">正在读取歌曲数据...</p>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
