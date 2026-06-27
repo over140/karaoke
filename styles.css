@@ -369,6 +369,14 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
+.timeline-row span:first-child {
+  text-align: right;
+}
+
+.timeline-row span:last-child {
+  text-align: left;
+}
+
 .seek-bar {
   width: 100%;
   accent-color: var(--accent);
@@ -495,24 +503,29 @@ h1 {
     border-bottom: none;
     border-radius: 0;
     padding-bottom: calc(12px + env(safe-area-inset-bottom));
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "now-playing repeat"
+      "timeline    timeline"
+      "controls    controls";
     gap: 10px;
   }
 
-  .controls-row {
-    order: 2;
-  }
-
-  .timeline-row {
-    order: 1;
-  }
-
   .mini-now-playing {
-    order: 0;
+    grid-area: now-playing;
   }
 
   .secondary-row {
-    order: 3;
-    justify-content: center;
+    grid-area: repeat;
+    align-self: center;
+  }
+
+  .timeline-row {
+    grid-area: timeline;
+  }
+
+  .controls-row {
+    grid-area: controls;
+    justify-content: space-evenly;
   }
 }
