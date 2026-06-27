@@ -86,7 +86,7 @@ select:hover,
 
 .list-shell {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .player-shell {
@@ -483,13 +483,18 @@ h1 {
   }
 
   .player-shell {
-    padding-bottom: 230px;
+    padding-bottom: calc(230px + env(safe-area-inset-bottom));
   }
 
   .player-bar {
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 0;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
     grid-template-columns: 1fr;
     gap: 10px;
   }

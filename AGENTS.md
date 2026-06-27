@@ -37,6 +37,11 @@ assets/lyrics/            # LRC 歌词文件
 .github/workflows/        # GitHub Pages 部署 workflow，仅在明确部署时使用
 ```
 
+## 本地调试
+
+- 本地服务器必须用 `npx serve -p 8080 .`，**不要用 `python3 -m http.server`**。
+- 原因：音频 seek 依赖 HTTP Range 请求（`Accept-Ranges: bytes` / `206 Partial Content`）。Python 内置服务器不支持 Range 请求，会导致 Chrome 无法拖动进度条；`npx serve` 原生支持。
+
 ## 完成标准
 
 - 本地改动范围清楚。
