@@ -91,8 +91,13 @@ select:hover,
 
 .player-shell {
   display: grid;
-  align-items: stretch;
+  align-items: start;
+  gap: 12px;
   padding-bottom: 190px;
+}
+
+.player-shell > .back-link {
+  justify-self: start;
 }
 
 .surface {
@@ -105,14 +110,10 @@ select:hover,
 }
 
 .player-surface {
-  min-height: calc(100vh - 246px);
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: 18px;
+  min-height: calc(100vh - 200px);
 }
 
-.page-header,
-.player-header {
+.page-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -121,40 +122,12 @@ select:hover,
   border-bottom: 1px solid var(--line);
 }
 
-.player-header {
-  align-items: center;
-}
-
-.hero-cover {
-  width: 112px;
-  aspect-ratio: 1;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  border-radius: 8px;
-  color: #fff;
-  background: linear-gradient(135deg, var(--accent), var(--warm));
-  box-shadow: 0 14px 30px rgba(29, 37, 40, 0.16);
-}
-
-.hero-cover svg {
-  width: 2.4rem;
-  height: 2.4rem;
-}
-
-.hero-cover img,
 .album-mark img,
 .song-card-cover img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
-}
-
-.song-heading {
-  min-width: 0;
-  text-align: right;
 }
 
 .eyebrow,
@@ -473,17 +446,8 @@ h1 {
     min-height: calc(100vh - 220px);
   }
 
-  .page-header,
-  .player-header {
+  .page-header {
     display: grid;
-  }
-
-  .song-heading {
-    text-align: left;
-  }
-
-  .hero-cover {
-    width: 96px;
   }
 
   .lyrics-list {

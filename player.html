@@ -8,23 +8,9 @@
   </head>
   <body data-page="player">
     <main class="app-shell player-shell">
-      <section class="surface player-surface" aria-label="Karaoke player">
-        <header class="player-header">
-          <a class="back-link" href="index.html" aria-label="返回歌曲列表">返回列表</a>
-          <div id="heroCover" class="hero-cover" aria-hidden="true">
-            <svg viewBox="0 0 24 24" focusable="false">
-              <path d="M9 18V5l12-2v13"></path>
-              <circle cx="6" cy="18" r="3"></circle>
-              <circle cx="18" cy="16" r="3"></circle>
-            </svg>
-          </div>
-          <div class="song-heading">
-            <p class="eyebrow">Now Playing</p>
-            <h1 id="songTitle">加载中...</h1>
-            <p id="songArtist" class="subtle">准备开始</p>
-          </div>
-        </header>
+      <a class="back-link" href="index.html" aria-label="返回歌曲列表">返回列表</a>
 
+      <section class="surface player-surface" aria-label="Karaoke player">
         <section class="lyrics-panel" aria-live="polite" aria-label="歌词">
           <ol id="lyricsList" class="lyrics-list"></ol>
         </section>

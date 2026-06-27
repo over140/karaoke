@@ -134,11 +134,8 @@ function renderListPage() {
 function getPlayerElements() {
   return {
     audioPlayer: document.querySelector("#audioPlayer"),
-    songTitle: document.querySelector("#songTitle"),
-    songArtist: document.querySelector("#songArtist"),
     miniSongTitle: document.querySelector("#miniSongTitle"),
     miniSongArtist: document.querySelector("#miniSongArtist"),
-    heroCover: document.querySelector("#heroCover"),
     miniCover: document.querySelector("#miniCover"),
     lyricsList: document.querySelector("#lyricsList"),
     currentTime: document.querySelector("#currentTime"),
@@ -210,11 +207,8 @@ async function loadSong(songId, shouldPlay = false) {
 
   currentSongIndex = nextIndex;
   const song = songs[currentSongIndex];
-  elements.songTitle.textContent = song.title;
-  elements.songArtist.textContent = song.artist || "未知歌手";
   elements.miniSongTitle.textContent = song.title;
   elements.miniSongArtist.textContent = song.artist || "未知歌手";
-  renderCover(elements.heroCover, song);
   renderCover(elements.miniCover, song);
   elements.audioPlayer.src = song.audio;
   elements.seekBar.value = "0";
