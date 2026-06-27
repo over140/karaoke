@@ -14,5 +14,12 @@
     "cover": "assets/covers/gu-tianle-tianming-zuigao.jpg",
     "audio": "assets/audio/gu-tianle-tianming-zuigao.mp3",
     "lyrics": "assets/lyrics/gu-tianle-tianming-zuigao.lrc"
+  },
+  {
+    "id": "zheng-zhong-ji-wu-lai",
+    "title": "无赖",
+    "artist": "郑中基",
+    "audio": "assets/audio/zheng-zhong-ji-wu-lai.mp3",
+    "lyrics": "assets/lyrics/zheng-zhong-ji-wu-lai.lrc"
   }
 ]
